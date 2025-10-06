@@ -87,6 +87,37 @@ speedy-orders-pipeline
 For testing, upload a file in S3 bucket and open the queue from the SQS console.
 If you are receiving a message then all is good.
 
+## Architecture
+
+### Data Flow
+
+1. AWS S3 stores incoming JSON order files.
+2. Snowflake Storage Integration securely connects Snowflake to S3.
+3. An external stage references the S3 bucket for file access.
+4. A pipe and notification integration utilize AWS SNS to auto-ingest new files.
+5. Raw data is loaded into a staging table.
+6. A dynamic table flattens and transforms item records for analysis.
+
+## Setup
+
+1. Clone this repository.
+2. Run each SQL file in order using Snowflake Worksheets or an automation tool:
+    - 00_preparation.sql - Set up integrations/roles.
+    - 01_stage_setup.sql - Create schema, stage, and files listing.
+    - 02_raw_table.sql - Create and explore raw ingestion table.
+    - 03_notification_pipe.sql - Notification setup and pipe for auto-ingestion.
+    - 04_dynamic_table_transform.sql - Data flattening/transformation.
+3. Check the pipe status and output:
+
+```sql
+SELECT SYSTEM$PIPE_STATUS('SPEEDY_PIPE');
+```
+4. Query transformed orders:
+
+```sql
+SELECT * FROM SPEEDY_ORDERS;
+```
+
 
 ## Author
 
