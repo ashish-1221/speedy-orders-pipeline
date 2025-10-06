@@ -1,4 +1,34 @@
-## Steps for creating a Amazon SNS
+# Speedy Orders ETL pipeline in Snowflake + AWS SNS
+
+## Overview
+This repository contains a modular, production-ready ETL pipeline using Snowflake's features and integrations with AWS S3 and SNS. The use case demonstrates how to automate ingestion, transformation, and analytics processing for bakery order data stored as JSON files in Amazon S3.
+
+## Folder Structure
+---
+```
+speedy-orders-pipeline
+├─ data
+│  ├─ raw_files
+│  │  ├─ Orders_2023-09-04_12-30-00_12345.json
+│  │  ├─ Orders_2023-09-04_12-30-00_12346.json
+│  │  └─ Orders_2023-09-04_12-45-00_12347.json
+│  └─ results
+│     ├─ speedy_orders.csv
+│     ├─ speedy_pipe_error_1
+│     ├─ speedy_pipe_status
+│     └─ storage_integration
+├─ README.md
+└─ sqls
+   ├─ 00_preparation.sql
+   ├─ 01_stage_setup.sql
+   ├─ 02_raw_table.sql
+   ├─ 03_notification_pipe.sql
+   ├─ 04_dynamic_table.sql
+   └─ raw.sql
+
+```
+
+## Steps for setting up Amazon SNS
 1. Open Amazon SNS service from AWS console
 2. Click on Create Topic in the Amazon SNS console.
 3. In Type select *Standard*, and give the topic a name
@@ -10,17 +40,25 @@
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "<SNOWFLAKE_AWS_IAM_USER_ARN>"
+      },
+      "Action": "SNS:Subscribe",
+      "Resource": "<SNS_TOPIC_ARN>"
+    },
+    {
       "Sid": "AllowSNSTopicPublishFromS3",
       "Effect": "Allow",
       "Principal": { "Service": "s3.amazonaws.com" },
       "Action": "SNS:Publish",
-      "Resource": "SNS_TOPIC_ARN",
+      "Resource": "<SNS_TOPIC_ARN>",
       "Condition": {
         "StringEquals": {
-          "AWS:SourceAccount": "BUCKET_OWNER_ACCOUNT_ID"
+          "AWS:SourceAccount": "<BUCKET_OWNER_ACCOUNT_ID>"
         },
         "ArnLike": {
-          "AWS:SourceArn": "arn:aws:s3:::BUCKET_NAME"
+          "AWS:SourceArn": "arn:aws:s3:::<BUCKET_NAME>"
         }
       }
     }
@@ -48,3 +86,8 @@
 
 For testing, upload a file in S3 bucket and open the queue from the SQS console.
 If you are receiving a message then all is good.
+
+
+## Author
+
+Ashish Prasad Maharana | [maharanaashish72@gmail.com/https://github.com/ashish-1221]

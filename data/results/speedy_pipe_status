@@ -1,0 +1,10 @@
+"SYSTEM$PIPE_STATUS('SPEEDY_PIPE')"
+"{
+    ""executionState"":""STALLED_COMPILATION_ERROR"",
+    ""pendingFileCount"":0,
+    ""error"":""SQL access control error:\nInsufficient privileges to operate on integration 'SPEEDY_INTEGRATION'."",
+    ""notificationChannelName"":""arn:aws:sqs:us-east-1:445985103706:sf-snowpipe-AIDAWPVWIT5NOBY7FML63-u2MQkXTvgr3aopSmHHsd-g"",
+    ""numOutstandingMessagesOnChannel"":0,
+    ""lastPulledFromChannelTimestamp"":""2025-10-06T18:45:11.78Z"",
+    ""pendingHistoryRefreshJobsCount"":0
+}"

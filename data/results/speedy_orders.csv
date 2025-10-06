@@ -1,0 +1,5 @@
+"ORDER_ID","ORDER_DATE","BAKED_GOOD_TYPE","QUANTITY","SOURCE_FILE_NAME","LOAD_TS"
+"12345","2023-09-04 12:30:00.000","Croissant","2","speedy_service_files/Orders_2023-09-04_12-30-00_12345.json","2025-10-06 12:40:23.834"
+"12345","2023-09-04 12:30:00.000","Bagel","3","speedy_service_files/Orders_2023-09-04_12-30-00_12345.json","2025-10-06 12:40:23.834"
+"12346","2023-09-04 12:30:00.000","Croissant","5","speedy_service_files/Orders_2023-09-04_12-30-00_12346.json","2025-10-06 12:40:23.834"
+"12347","2023-09-04 12:45:00.000","Muffin","12","speedy_service_files/Orders_2023-09-04_12-45-00_12347.json","2025-10-06 12:40:23.834"
